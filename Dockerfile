@@ -40,7 +40,7 @@ RUN curl -L "${ANDROID_SDK_URL}" -o /tmp/android-sdk-linux.zip && \
     ls ${ANDROID_HOME}/tools && chown -R root:root ${ANDROID_HOME}
 
 # # Install Android SDK components
-RUN echo y | sdkmanager "platform-tools" "build-tools;26.0.2" "build-tools;25.0.3" "platforms;android-26" "platforms;android-25" "extras;google;m2repository" "extras;android;m2repository" "extras;google;google_play_services"
+RUN echo y | sdkmanager "platform-tools" "build-tools;27.0.3" "build-tools;26.0.2" "build-tools;25.0.3" "build-tools;23.0.1"  "platforms;android-27" "platforms;android-26" "platforms;android-25" "platforms;android-23"  "extras;google;m2repository" "extras;android;m2repository" "extras;google;google_play_services"
 
 RUN echo ANDROID_HOME="$ANDROID_HOME" >> /etc/environment
 
