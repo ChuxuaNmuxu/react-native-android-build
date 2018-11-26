@@ -1,7 +1,7 @@
 FROM openjdk:8
 
 # 使用淘宝镜像安装Node.js
-ENV NODE_VERSION 10.13.0
+ENV NODE_VERSION 8.9.0
 RUN wget https://npm.taobao.org/mirrors/node/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
     tar -C /usr/local --strip-components 1 -xzf node-v${NODE_VERSION}-linux-x64.tar.gz && \
     rm node-v${NODE_VERSION}-linux-x64.tar.gz
