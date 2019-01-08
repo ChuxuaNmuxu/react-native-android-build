@@ -61,4 +61,6 @@ COPY deploy.sh script/deploy.sh
 
 RUN chown -R ${user}:${user} script
 
+USER ${user}
+
 CMD ["./script/deploy.sh"]
