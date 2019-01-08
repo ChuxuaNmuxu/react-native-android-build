@@ -57,6 +57,6 @@ WORKDIR ${CJMAN_HOME}
 
 COPY deploy.sh script/deploy.sh
 
-RUN chomd -R ${user}:${user} script
+RUN chmod -R ${user}:${user} script
 
 CMD ["./script/deploy.sh"]
