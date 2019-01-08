@@ -9,6 +9,8 @@ ENV CJMAN_HOME /var/cjman
 RUN groupadd -g ${gid} ${group} \
     && useradd -d "$CJMAN_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
+USER ${user}
+
 # 使用淘宝镜像安装Node.js
 ENV NODE_VERSION 10.13.0
 RUN wget https://npm.taobao.org/mirrors/node/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
