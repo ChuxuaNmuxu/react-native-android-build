@@ -1,5 +1,14 @@
 FROM openjdk:8
 
+ARG user=cjman
+ARG group=cjman
+ARG uid=1000
+ARG gid=1000
+ENV CJMAN_HOME /var/cjman
+
+RUN groupadd -g ${gid} ${group} \
+    && useradd -d "$CJMAN_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+
 # 使用淘宝镜像安装Node.js
 ENV NODE_VERSION 10.13.0
 RUN wget https://npm.taobao.org/mirrors/node/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
@@ -44,8 +53,10 @@ RUN echo y | sdkmanager "platform-tools" "build-tools;27.0.3" "build-tools;26.0.
 
 RUN echo ANDROID_HOME="$ANDROID_HOME" >> /etc/environment
 
-COPY deploy.sh /deploy.sh
+WORKDIR ${CJMAN_HOME}
 
-RUN chmod +x /deploy.sh
+COPY deploy.sh script/deploy.sh
 
-CMD ["/deploy.sh"]
+RUN chomd -R ${user}:${user} script
+
+CMD ["./script/deploy.sh"]
