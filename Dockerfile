@@ -4,6 +4,7 @@ ARG user=cjman
 ARG group=cjman
 ARG uid=1000
 ARG gid=1000
+VOLUME /data
 ENV CJMAN_HOME /var/cjman
 
 RUN groupadd -g ${gid} ${group} \
@@ -53,14 +54,20 @@ RUN echo y | sdkmanager "platform-tools" "build-tools;27.0.3" "build-tools;26.0.
 
 RUN echo ANDROID_HOME="$ANDROID_HOME" >> /etc/environment
 
-WORKDIR ${CJMAN_HOME}
 
-COPY deploy.sh script/deploy.sh
+# 兼容window的sh脚本运行方式，没有使用npm run 命令
+# 文件用户和用户组cjman
+# WORKDIR ${CJMAN_HOME}
 
-RUN chown -R ${user}:${user} script
+# COPY deploy.sh script/deploy.sh
 
-WORKDIR script
+# RUN chown -R ${user}:${user} script
 
-USER ${user}
+# WORKDIR script
 
-CMD ["sh", "deploy.sh"]
+# USER ${user}
+
+# CMD ["sh", "deploy.sh"]
+WORKDIR /data
+
+ENTRYPOINT [ "npm", "run", "build" ]
